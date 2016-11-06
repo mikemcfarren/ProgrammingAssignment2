@@ -22,15 +22,15 @@ makeCacheMatrix <- function(x = matrix()) {
     setinverse <- function(inverse) m.inverse <<- inverse
     getinverse <- function() m.inverse
     list(set = set, get = get,
-         setmean = setmean,
-         getmean = getmean)
+         setinverse = setinverse,
+         getinverse = getinverse)
 }
 
 
 ## The following function checks to see if matrix has inverse, if
 ## it does, return the cached object.  Otherwise, invert the matrix, 
 ## cache the results, and return the inverse.
-            
+
 cacheSolve <- function(x, ...) {
     m.inverse <- x$getinverse()
     if(!is.null(m.inverse)) {
@@ -42,5 +42,25 @@ cacheSolve <- function(x, ...) {
     x$setinverse(m.inverse)
     m.inverse
 }
-            
-            
+
+
+## create a sample matrix that is invertible
+
+createSampleInvertibleMatrix <- function()
+{
+    m <- rbind(c(1, -1/10, -1/10, -1/10, -1/10), c(-1/10, 1, -1/10, -1/10, -1/10), c(-1/10, -1/10, 1, -1/10, -1/10), c(-1/10, -1/10, -1/10, 1, -1/10), c(-1/10, -1/10, -1/10, -1/10, 1))
+    m
+}
+
+
+## testing
+
+## z <- createSingularMatrix()
+## m = makeCacheMatrix(z)
+## first time, no cache... generate
+## cacheSolve(m) 
+## second time, HAS cache... return cache
+## cacheSolve(m) 
+
+
+
